@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="5">
+	<category name="org.springframework.security">
+		<priority value="debug" />
+	</category>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{DEFAULT} [%t] %-5level %logger{36}:%L - %msg%n" />
+		</Console>
+		<Console name="AppConsole" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{DEFAULT} %highlight{%5level}{TRACE=Magenta} [%21t] %-56c{1}: %highlight{%msg}{TRACE=Magenta}%n" />
+		</Console>
+		<Console name="SpringConsole" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%highlight{%d{DEFAULT} %5level}{TRACE=Magenta} [%21t] %highlight{%-56c{1}: %msg}{TRACE=Magenta}%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.shijin.learn" level="trace" additivity="false">
+			<AppenderRef ref="AppConsole" />
+		</Logger>
+		<Logger name="org.springframework.security" level="info"
+			additivity="false">
+			<AppenderRef ref="SpringConsole" />
+		</Logger>
+		<Root level="error">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>
