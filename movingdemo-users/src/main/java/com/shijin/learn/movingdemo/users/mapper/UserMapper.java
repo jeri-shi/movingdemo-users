@@ -15,9 +15,15 @@
 
 package com.shijin.learn.movingdemo.users.mapper;
 
+import java.util.Collection;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.shijin.learn.movingdemo.users.api.LoginUser;
 
@@ -29,6 +35,18 @@ import com.shijin.learn.movingdemo.users.api.LoginUser;
 public interface UserMapper {
 
   @Select("select * from companyusers where id = #{id}")
-  LoginUser getUser(@Param("id") Integer id);
+  LoginUser getUser(@Param("id") int id);
   
+  @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
+  @Insert("insert into companyusers (id, company, username, password) values (null, #{company}, #{username}, #{password}) ")
+  int addUser(LoginUser user);
+  
+  @Update("update companyusers set company=#{company}, username=#{username}, password=#{password}, enabled=#{enabled} where id = #{id}")
+  int updateUser(LoginUser user);
+  
+  @Delete("delete from companyusers where id = #{id}")
+  int deleteUser(int id);
+  
+  @Select("select * from companyusers where company = #{company}")
+  Collection<LoginUser> getUsers(String company);
 }

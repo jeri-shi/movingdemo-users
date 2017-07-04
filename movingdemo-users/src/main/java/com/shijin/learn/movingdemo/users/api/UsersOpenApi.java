@@ -11,10 +11,10 @@ public interface UsersOpenApi {
   public LoginUser addUser(@RequestBody LoginUser user);
 
   @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-  public void deleteUser(@RequestParam int id);
+  public int deleteUser(@RequestParam int id);
   
-  @RequestMapping(value = "/user/{id}")
-  public LoginUser updateUser(@RequestParam Integer id, @RequestParam LoginUser user);
+  @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+  public LoginUser updateUser(@RequestParam int id, @RequestParam LoginUser user);
 
   @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
   public LoginUser getUser(@RequestParam int id);
