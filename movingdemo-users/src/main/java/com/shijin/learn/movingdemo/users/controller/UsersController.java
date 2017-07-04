@@ -8,21 +8,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shijin.learn.movingdemo.users.api.LoginUser;
-import com.shijin.learn.movingdemo.users.api.UsersService;
+import com.shijin.learn.movingdemo.users.api.UsersOpenApi;
 
 /**
  * @author shijin
  *
  */
 @RestController
-public class UsersController implements UsersService {
+public class UsersController implements UsersOpenApi {
   private static final Logger LOGGER = LogManager.getLogger(UsersController.class);
 
   @Override
@@ -34,7 +33,7 @@ public class UsersController implements UsersService {
 
   @Override
   @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-  public void deleteUser(@PathVariable Integer id) {
+  public void deleteUser(@PathVariable int id) {
     LOGGER.debug("delete a user:{}", id);
   }
 
@@ -47,7 +46,7 @@ public class UsersController implements UsersService {
 
   @Override
   @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-  public LoginUser getUser(@PathVariable Integer id) {
+  public LoginUser getUser(@PathVariable int id) {
     LOGGER.debug("get a user:{}", id);
     return null;
   }

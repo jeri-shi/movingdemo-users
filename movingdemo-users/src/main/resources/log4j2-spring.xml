@@ -20,12 +20,12 @@
 		<Logger name="com.shijin.learn" level="trace" additivity="false">
 			<AppenderRef ref="AppConsole" />
 		</Logger>
-		<Logger name="org.springframework.security" level="info"
+		<Logger name="org.springframework.jdbc" level="debug"
 			additivity="false">
 			<AppenderRef ref="SpringConsole" />
 		</Logger>
-		<Root level="error">
-			<AppenderRef ref="Console" />
+		<Root level="info">
+			<AppenderRef ref="SpringConsole" />
 		</Root>
 	</Loggers>
 </Configuration>
