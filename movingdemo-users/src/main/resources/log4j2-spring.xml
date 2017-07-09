@@ -20,11 +20,11 @@
 		<Logger name="com.shijin.learn" level="trace" additivity="false">
 			<AppenderRef ref="AppConsole" />
 		</Logger>
-		<Logger name="org.springframework.boot.test" level="warn"
+		<Logger name="org.springframework.web.client" level="debug"
 			additivity="false">
 			<AppenderRef ref="SpringConsole" />
 		</Logger>
-		<Logger name="org.springframework.boot" level="warn"
+		<Logger name="org.springframework.security.oauth2" level="debug"
 			additivity="false">
 			<AppenderRef ref="SpringConsole" />
 		</Logger>

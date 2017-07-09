@@ -1,0 +1,34 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:11111/eureka
+
+server:
+  port: 18888
+  context-path: /client
+
+#spring.session.store-type=redis
+#spring.datasource.jndi-name=jdbc/dataSource
+
+spring:
+  application:
+    name: MOVINGDEMO-USERS
+  datasource:
+    url: jdbc:mysql://localhost:3306/hello
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  output:
+    ansi:
+      enabled: detect
+
+security:
+  oauth2:
+    client:
+      client-id: movingdemo-users
+      client-secret: users-secret
+      access-token-uri: http://localhost:8888/oauth/token
+      user-authorization-uri: http://localhost:8888/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:8888/me
+      
