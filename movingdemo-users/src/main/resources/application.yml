@@ -27,8 +27,8 @@ security:
     client:
       client-id: movingdemo-users
       client-secret: users-secret
-      access-token-uri: http://localhost:8888/oauth/token
-      user-authorization-uri: http://localhost:8888/oauth/authorize
+      access-token-uri: http://localhost:8888/uaa/oauth/token
+      user-authorization-uri: http://localhost:8888/uaa/oauth/authorize
     resource:
-      user-info-uri: http://localhost:8888/me
+      user-info-uri: http://localhost:8888/uaa/me
       

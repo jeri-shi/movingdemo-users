@@ -12,16 +12,22 @@
 
 package com.shijin.learn.movingdemo.users.api;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author shijin
  *
  */
+@Data
 public class LoginUser {
   private int id;
   private String company;
   private String username;
   private String password;
   private boolean enabled;
+  private @Setter @Getter boolean expired;
 
   /**
    * @return the name
