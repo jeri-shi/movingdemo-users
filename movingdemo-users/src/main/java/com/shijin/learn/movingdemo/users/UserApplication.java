@@ -16,7 +16,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableOAuth2Sso
 @EnableResourceServer
 public class UserApplication {
 
