@@ -26,4 +26,11 @@ security:
   oauth2:
     resource:
       user-info-uri: http://localhost:8888/uaa/me
-      
+
+debug: true
+logging:
+  level:
+    com.shijin.learn: Debug
+    org.springframework.security: DEBUG
+    org.springframework.cloud.netflix.zuul: Debug
+    com.netflix.zuul: DEBUG

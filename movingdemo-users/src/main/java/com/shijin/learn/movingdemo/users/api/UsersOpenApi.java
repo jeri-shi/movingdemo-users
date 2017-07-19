@@ -17,6 +17,6 @@ public interface UsersOpenApi {
   public LoginUser updateUser(@RequestParam int id, @RequestParam LoginUser user);
 
   @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-  public LoginUser getUser(@RequestParam int id);
+  public LoginUser getUser(@RequestParam int id) throws Exception;
 
 }

@@ -4,6 +4,8 @@
 package com.shijin.learn.movingdemo.users.controller;
 
 
+import java.util.Random;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +62,10 @@ public class UsersController implements UsersOpenApi {
 
   @Override
   @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-  public LoginUser getUser(@PathVariable int id) {
-    LOGGER.debug("get a user:{}", id);
+  public LoginUser getUser(@PathVariable int id) throws Exception{
+    int sleepTime = new Random().nextInt(30);
+    LOGGER.debug("get a user:{} in {} milseconds", id, sleepTime);
+    Thread.sleep(sleepTime);
     return userMapper.getUser(id);
   }
 

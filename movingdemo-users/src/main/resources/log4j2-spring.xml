@@ -28,7 +28,7 @@
 			additivity="false">
 			<AppenderRef ref="SpringConsole" />
 		</Logger>
-		<Root level="warn">
+		<Root level="info">
 			<AppenderRef ref="SpringConsole" />
 		</Root>
 	</Loggers>
