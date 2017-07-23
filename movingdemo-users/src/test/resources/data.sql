@@ -1,4 +1,3 @@
-
 insert into users values('Jeri', '111111', true);
 insert into users values('Sunny', '222', true);
 

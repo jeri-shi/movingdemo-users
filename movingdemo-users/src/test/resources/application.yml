@@ -1,0 +1,8 @@
+security:
+  user:
+    password: password
+
+debug: false
+logging:
+  level:
+    org.springframework.jdbc.datasource.init: debug

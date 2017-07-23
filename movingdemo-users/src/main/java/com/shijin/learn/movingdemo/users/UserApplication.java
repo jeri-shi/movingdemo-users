@@ -13,10 +13,10 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
  * Hello world!
  *
  */
-@EnableFeignClients
-@EnableDiscoveryClient
+//@EnableFeignClients
+//@EnableDiscoveryClient
 @SpringBootApplication
-@EnableResourceServer
+//@EnableResourceServer
 public class UserApplication {
 
   public static void main(String[] args) {
