@@ -12,6 +12,8 @@
 
 package com.shijin.learn.movingdemo.users.api;
 
+import java.io.Serializable;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,12 +23,13 @@ import lombok.Setter;
  *
  */
 @Data
-public class LoginUser {
+public class LoginUser implements Serializable{
+  private static final long serialVersionUID = -8912259935337097472L;
   private int id;
   private String company;
   private String username;
   private String password;
-  private boolean enabled;
+  private Boolean enabled;
   private @Setter @Getter boolean expired;
 
   /**
@@ -73,11 +76,11 @@ public class LoginUser {
     this.id = id;
   }
 
-  public boolean isEnabled() {
+  public Boolean getEnabled() {
     return enabled;
   }
 
-  public void setEnabled(boolean enabled) {
+  public void setEnabled(Boolean enabled) {
     this.enabled = enabled;
   }
 

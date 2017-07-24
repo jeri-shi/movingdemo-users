@@ -5,4 +5,7 @@ security:
 debug: false
 logging:
   level:
-    org.springframework.jdbc.datasource.init: debug
+    org.springframework.web: debug
+    org.apache.ibatis: debug
+    org.springframework.boot.test: debug
+    
