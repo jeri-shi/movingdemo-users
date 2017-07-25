@@ -23,6 +23,7 @@ spring:
       enabled: detect
 
 security:
+  password: password
   oauth2:
     resource:
       user-info-uri: http://localhost:8888/uaa/me
@@ -35,3 +36,5 @@ logging:
     org.springframework.cloud.netflix.zuul: Debug
     com.netflix.zuul: DEBUG
     org.springframework.security.web.util: info
+    org.springframework.web.servlet: trace
+

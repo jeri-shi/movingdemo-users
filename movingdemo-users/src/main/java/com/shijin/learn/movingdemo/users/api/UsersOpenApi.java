@@ -1,5 +1,7 @@
 package com.shijin.learn.movingdemo.users.api;
 
+import java.util.Collection;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,4 +21,7 @@ public interface UsersOpenApi {
   @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
   public LoginUser getUser(@RequestParam int id) throws Exception;
 
+  @RequestMapping(value = "/userslist", method = RequestMethod.POST)
+  public Collection<LoginUser> getUsersList(@RequestBody(required=false) UserListQueryParameters param);
+  
 }

@@ -72,10 +72,10 @@ public class UsersController implements UsersOpenApi {
     return userMapper.getUser(id);
   }
 
-
+  @Override
   @RequestMapping(value = "/userslist", method = RequestMethod.POST)
   public Collection<LoginUser> getUsersList(@RequestBody(required=false) UserListQueryParameters param) {
-    
+    LOGGER.trace("/userslist ...");
     return userMapper.getUsersList((param!=null?param.getUserParam():null), (param!=null?param.getPageParam():null));
   }
 
