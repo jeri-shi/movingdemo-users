@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableResourceServer
+@EnableResourceServer  //need to comment to run all unit test, uncomment for production
 public class UserApplication {
 
   public static void main(String[] args) {
