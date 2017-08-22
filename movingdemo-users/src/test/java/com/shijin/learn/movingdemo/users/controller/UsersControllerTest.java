@@ -6,6 +6,7 @@ package com.shijin.learn.movingdemo.users.controller;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -60,6 +61,14 @@ public class UsersControllerTest {
     mvc.perform(get("/user/3").with(user("user"))).andExpect(status().isOk())
         .andExpect(content().string("{\"id\":10,\"company\":\"Testing\",\"username\":\"Test2\",\"password\":\"111\",\"enabled\":true}"));
 
+  }
+  
+  @Test
+  public void getUserListCount() throws Exception {
+    given(userMapper.getUsersListCount(null, null)).willReturn(3000l);
+    
+    mvc.perform(post("/userslistcount").with(user("user"))).andExpect(status().isOk())
+     .andExpect(content().string("3000"));
   }
 
 }

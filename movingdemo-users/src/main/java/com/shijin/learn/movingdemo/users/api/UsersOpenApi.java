@@ -24,4 +24,7 @@ public interface UsersOpenApi {
   @RequestMapping(value = "/userslist", method = RequestMethod.POST)
   public Collection<LoginUser> getUsersList(@RequestBody(required=false) UserListQueryParameters param);
   
+  @RequestMapping(value = "/userslistcount", method = RequestMethod.POST)
+  public long getUsersListCount(@RequestBody(required=false) UserListQueryParameters param);
+
 }

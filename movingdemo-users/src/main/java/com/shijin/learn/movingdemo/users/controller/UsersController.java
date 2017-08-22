@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.shijin.learn.movingdemo.users.api.LoginUser;
+import com.shijin.learn.movingdemo.users.api.Pagination;
 import com.shijin.learn.movingdemo.users.api.UserListQueryParameters;
 import com.shijin.learn.movingdemo.users.api.UsersOpenApi;
 import com.shijin.learn.movingdemo.users.mapper.UserMapper;
@@ -79,4 +79,13 @@ public class UsersController implements UsersOpenApi {
     return userMapper.getUsersList((param!=null?param.getUserParam():null), (param!=null?param.getPageParam():null));
   }
 
-}
+  @Override
+  @RequestMapping(value = "/userslistcount", method = RequestMethod.POST)
+  public long getUsersListCount(@RequestBody(required=false) UserListQueryParameters param) {
+    LOGGER.debug("/userslistCount ..." + param);
+    long count = userMapper.getUsersListCount((param!=null?param.getUserParam():null), null);
+    
+    return count;
+  }
+
+  }

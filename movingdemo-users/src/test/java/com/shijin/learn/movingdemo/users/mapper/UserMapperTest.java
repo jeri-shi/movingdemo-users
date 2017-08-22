@@ -153,4 +153,15 @@ public class UserMapperTest {
     assertEquals(1, collection.size());
   }
   
+  @Test
+  public void getUsersListCount() {
+    long count = userMapper.getUsersListCount(null, null);
+    assertEquals(2, count);
+    
+    LoginUser user = new LoginUser();
+    user.setCompany("Learn");
+    
+    count = userMapper.getUsersListCount(user, null);
+    assertEquals(2, count);
+  }
 }

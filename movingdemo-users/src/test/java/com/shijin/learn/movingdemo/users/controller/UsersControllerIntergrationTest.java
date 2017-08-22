@@ -152,4 +152,17 @@ public class UsersControllerIntergrationTest {
     assertEquals("Wendy", collection.iterator().next().getUsername());
   }
   
+  @Test
+  public void getUsersListCountTest() {
+    UserListQueryParameters queryParameters = new UserListQueryParameters(null, null);
+    HttpEntity<UserListQueryParameters> request = new HttpEntity<>(queryParameters);
+    
+    ResponseEntity<Long> response =
+        restTemplate.withBasicAuth("user", "password").exchange("/userslistcount", HttpMethod.POST,
+            request, new ParameterizedTypeReference<Long>() {});
+    
+    Long count = response.getBody();
+    
+    assertEquals(2l, count.longValue());
+  }
 }

@@ -59,13 +59,29 @@ public interface UserMapper {
   Collection<LoginUser> getUsersList(@Param("param") LoginUser param,
       @Param("page") Pagination page);
 
+  @SelectProvider(type = UserSqlBuilder.class, method = "buildGetUsersListCount")
+  long getUsersListCount(@Param("param") LoginUser param, @Param("page") Pagination page);
+  
   class UserSqlBuilder {
+    
+    public String buildGetUsersListCount(Map<?, ?> parameters) {
+      return generateGetUsersList(parameters, true);
+    }
+    
     public String buildGetUsersList(Map<?, ?> parameters) {
+      return generateGetUsersList(parameters, false);
+    }
+    
+    private String generateGetUsersList(Map<?, ?> parameters, boolean isCount) {
       LoginUser userParam = (LoginUser) parameters.get("param");
       Pagination page = (Pagination) parameters.get("page");
       String sql = new SQL() {
         {
-          SELECT("*");
+          if (isCount) {
+            SELECT("count(*)"); 
+          } else {
+            SELECT("*");
+          }
           FROM("companyusers");
           if (userParam != null) {
             if (userParam.getCompany() != null) {
@@ -81,7 +97,7 @@ public interface UserMapper {
         }
       }.toString();
 
-      if (page != null) {
+      if (page != null && !isCount) {
         sql += page.getMySql();
       }
 

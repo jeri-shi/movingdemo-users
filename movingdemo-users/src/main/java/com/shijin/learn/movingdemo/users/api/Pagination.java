@@ -6,6 +6,7 @@ public class Pagination  implements Serializable{
   private static final long serialVersionUID = -5144960643511189599L;
   private long current;
   private int countPerPage;
+  private long total;
 
   public Pagination() {
     
@@ -40,6 +41,15 @@ public class Pagination  implements Serializable{
     return countPerPage;
   }
   
+  public long getTotal() {
+    return total;
+  }
+
+
+  public void setTotal(long total) {
+    this.total = total;
+  }
+
   public String getMySql() {
     return " Limit " + getOffset() + ", " + countPerPage;
   }
