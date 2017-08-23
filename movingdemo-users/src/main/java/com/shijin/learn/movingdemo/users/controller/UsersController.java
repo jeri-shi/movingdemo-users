@@ -37,7 +37,7 @@ public class UsersController implements UsersOpenApi {
   @RequestMapping(value = "/user", method = RequestMethod.POST)
   public LoginUser addUser(@RequestBody LoginUser user) {
     LOGGER.debug("add a user:{}", user);
-
+    user.setPassword("111");  //set default password, should be set by a password generator
     userMapper.addUser(user);
     return user;
   }
