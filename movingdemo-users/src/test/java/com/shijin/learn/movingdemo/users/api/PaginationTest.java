@@ -2,8 +2,6 @@ package com.shijin.learn.movingdemo.users.api;
 
 import static org.junit.Assert.assertEquals;
 
-import java.awt.Panel;
-
 import org.junit.Test;
 
 public class PaginationTest {

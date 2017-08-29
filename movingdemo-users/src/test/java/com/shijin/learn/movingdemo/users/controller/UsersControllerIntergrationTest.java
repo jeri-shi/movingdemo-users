@@ -4,6 +4,7 @@
 package com.shijin.learn.movingdemo.users.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -20,6 +21,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResponseErrorHandler;
+import org.springframework.web.client.RestClientException;
 
 import com.shijin.learn.movingdemo.users.api.LoginUser;
 import com.shijin.learn.movingdemo.users.api.Pagination;
@@ -59,6 +65,7 @@ public class UsersControllerIntergrationTest {
     assertEquals(user.getEnabled(), updatedUser.getEnabled());
   }
 
+  
   @Test
   public void addUserTest() {
     LoginUser user = new LoginUser();
@@ -72,7 +79,7 @@ public class UsersControllerIntergrationTest {
     assertNotNull(newUser);
     assertEquals(user.getCompany(), newUser.getCompany());
     assertEquals(user.getEnabled(), newUser.getEnabled());
-    assertEquals(2, newUser.getId());
+    assertNotEquals(0, newUser.getId());
     
     restTemplate.withBasicAuth("user", "password").delete("/user/{1}", newUser.getId());
   }
@@ -165,4 +172,37 @@ public class UsersControllerIntergrationTest {
     
     assertEquals(2l, count.longValue());
   }
+
+  @Test
+  public void addUserExceptionHanlderTest() {
+    ResponseErrorHandler originalHanlder = restTemplate.getRestTemplate().getErrorHandler();
+    DefaultResponseErrorHandler handler = new DefaultResponseErrorHandler();
+    
+    restTemplate.getRestTemplate().setErrorHandler(handler);
+    LoginUser user = new LoginUser();
+    user.setCompany("LearnHard");
+    user.setUsername("Hard");
+    user.setPassword("222");
+
+    ResponseEntity<LoginUser> response = restTemplate.withBasicAuth("user", "password").postForEntity("/user", user, LoginUser.class);
+    assertNotNull(response.getBody());
+    assertEquals(200, response.getStatusCodeValue());
+    
+    LoginUser newUser = (LoginUser)response.getBody();
+    try{
+    response = restTemplate.withBasicAuth("user", "password").postForEntity("/user", user, LoginUser.class);
+    assertEquals(500, response.getStatusCodeValue()); 
+    }catch (HttpClientErrorException e) {
+      System.out.println(e.getResponseBodyAsString());
+    }catch (HttpServerErrorException e) {
+      System.out.println(e.getResponseBodyAsString());
+    }catch(RestClientException e){
+      System.out.println(e.getMessage());
+    }    
+    
+    restTemplate.withBasicAuth("user", "password").delete("/user/{1}", newUser.getId());
+    restTemplate.getRestTemplate().setErrorHandler(originalHanlder);
+  }
+
+
 }

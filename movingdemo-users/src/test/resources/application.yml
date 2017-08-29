@@ -2,10 +2,10 @@ security:
   user:
     password: password
 
-debug: false
+debug: true
 logging:
   level:
-    org.springframework.web: debug
-    org.apache.ibatis: debug
-    org.springframework.boot.test: debug
+    org.springframework.web.client: debug
+    org.apache.ibatis: info
+    org.springframework.boot.test: info
     

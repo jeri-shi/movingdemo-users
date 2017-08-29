@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shijin.learn.movingdemo.users.api.LoginUser;
-import com.shijin.learn.movingdemo.users.api.Pagination;
 import com.shijin.learn.movingdemo.users.api.UserListQueryParameters;
 import com.shijin.learn.movingdemo.users.api.UsersOpenApi;
 import com.shijin.learn.movingdemo.users.mapper.UserMapper;
