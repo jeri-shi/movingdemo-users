@@ -28,13 +28,16 @@ security:
     resource:
       user-info-uri: http://localhost:8888/uaa/me
 
+storage:
+  rootLocation: c:\sj\upload\images
+  
 debug: true
 logging:
   level:
-    com.shijin.learn: Debug
-    org.springframework.security: DEBUG
-    org.springframework.cloud.netflix.zuul: Debug
-    com.netflix.zuul: DEBUG
+    com.shijin.learn: trace
+    org.springframework.security: info
+    org.springframework.cloud.netflix.zuul: none
+    com.netflix.zuul: none
     org.springframework.security.web.util: info
-    org.springframework.web.servlet: trace
+    org.springframework.web.servlet: info
 

@@ -2,10 +2,13 @@ security:
   user:
     password: password
 
-debug: true
+debug: false
 logging:
   level:
     org.springframework.web.client: debug
     org.apache.ibatis: info
     org.springframework.boot.test: info
+    
+storage:
+  rootLocation: c:\temp\upload\images
     
