@@ -1,6 +1,7 @@
 package com.shijin.learn.movingdemo.users.service;
 
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +15,8 @@ import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +31,35 @@ public class FileSystemStorageService implements StorageService {
     rootLocation = Paths.get(properties.getRootLocation());
   }
 
+  @Override
+  public Resource get(long id) {
+    LOGGER.debug("get({})", id);
+    Path image = null;
+
+    Path dest = rootLocation.resolve("" + id);
+    LOGGER.trace("dest = {}", dest);
+    
+    DirectoryStream<Path> stream;
+    try {
+      stream = Files.newDirectoryStream(dest, "head.*");
+      for (Path path: stream) {
+        image = dest.resolve(path.getFileName());
+        break;
+      }
+    } catch (IOException e) {
+      LOGGER.warn("not found image: {}", e.getMessage());
+    }
+    LOGGER.trace("image = {}", image);
+    
+    FileSystemResource resource = null;
+    if (image != null) {
+      resource = new FileSystemResource(image.toFile());
+    }
+    
+    LOGGER.trace("resource = {}", resource);
+    return resource;
+    
+  }
 
   @Override
   public Path store(long id, MultipartFile file, String filename) {
@@ -56,7 +88,7 @@ public class FileSystemStorageService implements StorageService {
     }
 
     LOGGER.debug("put image into {}", imageLocation);
-    return imageLocation;
+    return imageLocation.getFileName();
   }
 
   /**

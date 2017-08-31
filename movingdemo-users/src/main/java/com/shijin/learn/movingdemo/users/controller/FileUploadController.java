@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +22,7 @@ public class FileUploadController {
   @Autowired
   private StorageService storageService;
   
-  @PostMapping("/user/{id}/upload")
+  @PostMapping("/user/{id}/photo")
   public String handleFileUpload(@PathVariable("id") long id, @RequestPart("file") MultipartFile file,
       @RequestParam(value="filename", required=false) String filename) {
     LOGGER.debug("/user/id/upload... id = {}, multiFile = {}, filename={}", id,  file, filename);
@@ -28,4 +30,11 @@ public class FileUploadController {
     Path imagePath = storageService.store(id, file, filename);
     return imagePath.toString();
   }
+  
+  @GetMapping("/user/{id}/photo")
+  public Resource getPhotoAsResource(@PathVariable("id") long id) {
+    LOGGER.debug("/user/id/photo... id = {}", id);
+    return storageService.get(id);
+  }
+  
 }
