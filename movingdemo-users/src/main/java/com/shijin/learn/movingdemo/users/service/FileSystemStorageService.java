@@ -38,11 +38,11 @@ public class FileSystemStorageService implements StorageService {
 
     Path dest = rootLocation.resolve("" + id);
     LOGGER.trace("dest = {}", dest);
-    
+
     DirectoryStream<Path> stream;
     try {
       stream = Files.newDirectoryStream(dest, "head.*");
-      for (Path path: stream) {
+      for (Path path : stream) {
         image = dest.resolve(path.getFileName());
         break;
       }
@@ -50,15 +50,15 @@ public class FileSystemStorageService implements StorageService {
       LOGGER.warn("not found image: {}", e.getMessage());
     }
     LOGGER.trace("image = {}", image);
-    
+
     FileSystemResource resource = null;
     if (image != null) {
       resource = new FileSystemResource(image.toFile());
     }
-    
+
     LOGGER.trace("resource = {}", resource);
     return resource;
-    
+
   }
 
   @Override
@@ -72,19 +72,40 @@ public class FileSystemStorageService implements StorageService {
       } catch (IOException e) {
         LOGGER.error("Can't create upload folders: {}", e.getMessage());
       }
+    } else {
+      DirectoryStream<Path> stream;
+      try {
+        stream = Files.newDirectoryStream(location, "head.*");
+        stream.forEach((path) -> {
+          LOGGER.debug(path);
+          try {
+            Files.delete(path);
+          } catch (IOException e) {
+            LOGGER.debug("Delete error: {}", e.getMessage());
+          }
+        });
+      } catch (IOException e) {
+        LOGGER.debug(" found exiting images error: {}", e.getMessage());
+      }
 
     }
     Path imageLocation = null;
     try {
       String type = getFileType(file.getBytes());
       if (type == null) {
-        // TODO throw exception to deny illeagal file type
+        LOGGER.error("can't determine file type for {}", file);
         return null;
       }
       imageLocation = location.resolve("head." + type);
       Files.copy(file.getInputStream(), imageLocation, StandardCopyOption.REPLACE_EXISTING);
     } catch (IOException e) {
       LOGGER.error("Can't copy upload file: {}", e.getMessage());
+    } finally {
+      try {
+        file.getInputStream().close();
+      } catch (IOException e) {
+        LOGGER.warn("can't close file inputstream for {}", e.getMessage());
+      }
     }
 
     LOGGER.debug("put image into {}", imageLocation);

@@ -138,7 +138,7 @@ public class FileUploadControllerIntegrationTest {
           requestEntity, String.class, id);
 
       assertEquals(HttpStatus.OK, response.getStatusCode());
-      assertEquals(expectedImageLocation.toString(), response.getBody());
+      assertEquals(expectedImageLocation.getFileName().toString(), response.getBody());
       assertTrue("images file is created", Files.exists(expectedImageLocation));
     } catch (HttpClientErrorException e) {
       System.out.println(e.getResponseBodyAsString());
